@@ -1,0 +1,494 @@
+/* =========================
+   GLOBAL RESET
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* =========================
+   BODY (FIXED SCROLL ISSUE)
+========================= */
+body {
+    font-family: Arial, sans-serif;
+    background: #000004;
+    color: #ffffff;
+    text-align: center;
+
+    padding: 80px 20px 20px; /* space for navbar */
+
+    /* ✅ IMPORTANT FIX */
+    overflow-y: auto;
+}
+
+/* =========================
+   PAGE CONTAINER (FIXED)
+========================= */
+.page {
+    display: block;
+    min-height: 100vh;   /* ✅ allows full content */
+    padding: 20px;
+
+    /* animation support */
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    background-color: #333;
+    padding: 10px;
+
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 0 5px;
+
+    border-bottom: 2px solid transparent;
+    transition: 0.3s;
+}
+
+.navbar a:hover {
+    background-color: #555;
+}
+
+.navbar a.active-link {
+    font-weight: bold;
+    border-bottom: 2px solid #0077b5;
+}
+
+/* =========================
+   HEADINGS
+========================= */
+h1, h2, h3 {
+    margin: 10px 0;
+}
+
+h1 {
+    font-size: 2.5rem;
+    text-shadow: 0 0 8px #0077b5;
+}
+
+.home-page h2 {
+    font-size: 2rem;
+    color: #cccccc;
+    font-weight: 1000;
+}
+
+h3 {
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+h4 {
+    text-decoration: underline;
+    text-decoration-color: #0077b5;
+}
+
+.contact-page h2 {
+    font-size: 2.5rem;
+    font-weight: normal;
+}
+
+/* =========================
+   TEXT
+========================= */
+p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+
+    /* ✅ Fix long text readability */
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* =========================
+   LISTS
+========================= */
+ul {
+    list-style: none;
+    margin: 10px 0;
+}
+
+li {
+    margin: 5px 0;
+}
+
+/* =========================
+   LINKS
+========================= */
+a {
+    text-decoration: none;
+    color: #00a5fe;
+    transition: 0.3s;
+}
+
+a:hover {
+    text-shadow: 0 0 5px #00a5fe;
+}
+
+/* =========================
+   PROFILE IMAGE
+========================= */
+.profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 15px auto;
+    display: block;
+    border: 3px solid #0077b5;
+}
+
+/* =========================
+   GENERAL IMAGES
+========================= */
+img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin: 15px 0;
+}
+
+/* =========================
+   PROJECT CARDS
+========================= */
+.project-card {
+    background: #111;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 700px;
+    text-align: left;
+}
+
+.project-links {
+    margin-top: 15px;
+}
+
+.project-links a {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 8px 14px;
+    background: #0077b5;
+    color: white;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.project-links a:hover {
+    background: #005582;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   FORM
+========================= */
+form {
+    background: #111;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    margin: auto;
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: #0077b5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    border: 2px solid #005582;
+    Background: transparent;
+}
+
+
+/* =========================
+   SOCIAL ICONS (FOOTER)
+========================= */
+.footer-socials {
+    margin-top: 10px;
+}
+
+.footer-socials a {
+    margin: 0 10px;
+    color: white;
+    transition: 0.3s;
+}
+
+.footer-socials a:hover {
+    color: #0077b5;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+    margin-top: 30px;
+    padding: 15px;
+    background: #333;
+    border-radius: 8px;
+}
+
+/* =========================
+   PAGE TRANSITION (SCROLL STYLE)
+========================= */
+body {
+    opacity: 1;
+    transform: translateY(0);
+    transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+body.slide-out {
+    transform: translateY(-120px);
+    opacity: 0;
+}
+
+body.slide-in {
+    transform: translateY(120px);
+    opacity: 0;
+}
+
+/* =========================
+   SELECT (SUBJECT DROPDOWN)
+========================= */
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    background-color: #ffffff;
+    color: #000000;
+
+    border: 2px solid transparent;
+
+    font-size: 14px;
+    cursor: pointer;
+
+
+}
+
+/* Hover effect */
+select:hover {
+    border: 2px solid #0077b5;
+}
+
+/* =========================
+   OPTION STYLING
+========================= */
+option {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+/* =========================
+   CUSTOM DROPDOWN
+========================= */
+.custom-dropdown {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+/* Selected box */
+.selected {
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 6px;
+    border: 2px solid transparent;
+    color: rgb(0, 0, 0);
+}
+
+/* Selected container */
+.selected {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 6px;
+    border: 2px solid transparent;
+
+    color: rgb(0, 0, 0);
+    transition: 0.3s;
+}
+
+.selected:hover {
+    border: 2px solid #0077b5;
+}
+
+/* Arrow */
+.arrow {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+/* ✅ Rotate arrow when open */
+.custom-dropdown.active .arrow {
+    transform: rotate(180deg);
+}
+
+/* =========================
+   DROPDOWN OPTIONS (HIDDEN)
+========================= */
+.options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+
+    background: #333;
+    border-radius: 6px;
+
+    /* ✅ FORCE HIDDEN */
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+/* ✅ SHOW ONLY WHEN ACTIVE */
+.custom-dropdown.active .options {
+    max-height: 300px;   /* big enough for all items */
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Options */
+.options div {
+    padding: 10px;
+    color: rgb(0, 0, 0);
+    background: white;
+}
+
+.options div:hover {
+    background: #0077b5;
+    color: #ffffff;
+}
+
+/* =========================
+   MOBILE OPTIMIZATION
+========================= */
+@media (max-width: 768px) {
+
+  /* Body */
+  body {
+    padding: 70px 15px 20px;
+  }
+
+  /* Navbar */
+  .navbar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+
+  .navbar a {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  /* Headings */
+  h1 {
+    font-size: 1.6rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  /* Paragraphs */
+  p {
+    font-size: 14px;
+    max-width: 100%;
+    padding: 0 5px;
+  }
+
+  /* Profile image */
+  .profile-img {
+    width: 120px;
+    height: 120px;
+  }
+
+  /* Project cards */
+  .project-card {
+    padding: 15px;
+    margin: 10px;
+  }
+
+  /* Buttons */
+  .buttons a {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  /* Form */
+  form {
+    padding: 15px;
+  }
+
+  input,
+  select,
+  textarea {
+    font-size: 14px;
+  }
+
+  /* Dropdown fix */
+  .custom-dropdown {
+    max-width: 100%;
+  }
+
+  /* Footer */
+  footer {
+    font-size: 14px;
+  }
+}
