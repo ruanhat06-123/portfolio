@@ -1,7 +1,9 @@
 // ==============================
 // SUPABASE SETTINGS
 // ==============================
-// Replace these with your actual Supabase project values.
+// Public publishable/anon key is okay for frontend use.
+// NEVER use your service_role key in frontend JavaScript.
+
 const SUPABASE_URL = "https://dvjosisqpvopbxcglwhl.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_0LJnUqBnCZohvWoIFn5NWA_B3UtoKFv";
 
@@ -9,10 +11,12 @@ let supabaseClient = null;
 
 if (
   typeof supabase !== "undefined" &&
-  SUPABASE_URL !== "YOUR_SUPABASE_PROJECT_URL" &&
-  SUPABASE_ANON_KEY !== "YOUR_SUPABASE_ANON_KEY"
+  SUPABASE_URL &&
+  SUPABASE_ANON_KEY
 ) {
   supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+} else {
+  console.error("Supabase library was not loaded. Check the Supabase script tag in projects.html.");
 }
 
 // ==============================
@@ -32,12 +36,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }, 50);
 
   setupPageTransitions();
-  setupFormHandling();
+  setupContactForm();
   setupButtonAnimations();
   setupCustomDropdown();
   loadProjects();
 
-  console.log("JS Loaded:", document.title);
+  console.log("Public JS Loaded:", document.title);
 });
 
 // ==============================
@@ -51,10 +55,11 @@ function setupPageTransitions() {
       url &&
       !url.startsWith("http") &&
       !url.startsWith("mailto") &&
+      !url.startsWith("#") &&
       !link.hasAttribute("target")
     ) {
-      link.addEventListener("click", function (e) {
-        e.preventDefault();
+      link.addEventListener("click", event => {
+        event.preventDefault();
 
         document.body.classList.add("slide-out");
 
@@ -73,14 +78,21 @@ async function loadProjects() {
   const projectsContainer = document.getElementById("projects-container");
   const projectsStatus = document.getElementById("projects-status");
 
-  // Only run this code on projects.html
+  // Only run on projects.html
   if (!projectsContainer) return;
+
+  if (!projectsStatus) {
+    console.error("Missing #projects-status element in projects.html.");
+    return;
+  }
 
   if (!supabaseClient) {
     projectsStatus.textContent =
-      "Supabase is not connected yet. Please add your Supabase URL and anon key in main.js.";
+      "Supabase is not connected. Check the Supabase CDN script and main.js settings.";
     return;
   }
+
+  projectsStatus.textContent = "Loading projects...";
 
   try {
     const { data: projects, error } = await supabaseClient
@@ -90,13 +102,18 @@ async function loadProjects() {
       .order("display_order", { ascending: true });
 
     if (error) {
-      console.error("Supabase error:", error);
-      projectsStatus.textContent = "Failed to load projects from the database.";
+      console.error("Supabase project load error:", error);
+      projectsStatus.textContent =
+        "Failed to load projects from the database. Check your Supabase RLS policies.";
       return;
     }
 
+    console.log("Projects loaded from Supabase:", projects);
+
     if (!projects || projects.length === 0) {
-      projectsStatus.textContent = "No projects found.";
+      projectsStatus.textContent =
+        "No published projects found. Make sure your project is marked as published in the admin dashboard.";
+      projectsContainer.innerHTML = "";
       return;
     }
 
@@ -113,7 +130,8 @@ async function loadProjects() {
     }
   } catch (error) {
     console.error("Project loading error:", error);
-    projectsStatus.textContent = "Something went wrong while loading projects.";
+    projectsStatus.textContent =
+      "Something went wrong while loading projects.";
   }
 }
 
@@ -125,37 +143,37 @@ function createProjectCard(project) {
   section.classList.add("project-card");
 
   const title = document.createElement("h2");
-  title.textContent = project.title;
+  title.textContent = project.title || "Untitled Project";
 
   const description = document.createElement("p");
-  description.textContent = project.description;
+  description.textContent = project.description || "No description available.";
 
   const techList = document.createElement("ul");
 
-  if (Array.isArray(project.technologies)) {
-    project.technologies.forEach(technology => {
-      const li = document.createElement("li");
-      li.textContent = technology;
-      techList.appendChild(li);
-    });
-  }
+  const technologies = normalizeTechnologies(project.technologies);
+
+  technologies.forEach(technology => {
+    const li = document.createElement("li");
+    li.textContent = technology;
+    techList.appendChild(li);
+  });
 
   const linksContainer = document.createElement("div");
   linksContainer.classList.add("project-links");
 
-  if (Array.isArray(project.links)) {
-    project.links.forEach(link => {
-      if (!link.label || !link.url) return;
+  const links = normalizeLinks(project.links);
 
-      const anchor = document.createElement("a");
-      anchor.href = link.url;
-      anchor.textContent = link.label;
-      anchor.target = "_blank";
-      anchor.rel = "noopener noreferrer";
+  links.forEach(link => {
+    if (!link.label || !link.url) return;
 
-      linksContainer.appendChild(anchor);
-    });
-  }
+    const anchor = document.createElement("a");
+    anchor.href = link.url;
+    anchor.textContent = link.label;
+    anchor.target = "_blank";
+    anchor.rel = "noopener noreferrer";
+
+    linksContainer.appendChild(anchor);
+  });
 
   section.appendChild(title);
   section.appendChild(description);
@@ -172,15 +190,57 @@ function createProjectCard(project) {
 }
 
 // ==============================
-// FORM HANDLING
+// NORMALIZE TECHNOLOGIES
 // ==============================
-function setupFormHandling() {
+function normalizeTechnologies(technologies) {
+  if (Array.isArray(technologies)) {
+    return technologies;
+  }
+
+  if (typeof technologies === "string") {
+    return technologies
+      .split(",")
+      .map(item => item.trim())
+      .filter(Boolean);
+  }
+
+  return [];
+}
+
+// ==============================
+// NORMALIZE LINKS
+// ==============================
+function normalizeLinks(links) {
+  if (Array.isArray(links)) {
+    return links;
+  }
+
+  if (typeof links === "string") {
+    try {
+      const parsedLinks = JSON.parse(links);
+      return Array.isArray(parsedLinks) ? parsedLinks : [];
+    } catch (error) {
+      console.error("Could not parse project links:", error);
+      return [];
+    }
+  }
+
+  return [];
+}
+
+// ==============================
+// CONTACT FORM HANDLING
+// ==============================
+function setupContactForm() {
   const form = document.querySelector("form");
 
   if (!form) return;
 
-  form.addEventListener("submit", async e => {
-    e.preventDefault();
+  // Only handle your Formspree contact form
+  if (!form.action || !form.action.includes("formspree.io")) return;
+
+  form.addEventListener("submit", async event => {
+    event.preventDefault();
 
     const subjectInput = document.getElementById("subject");
 
@@ -213,7 +273,7 @@ function setupFormHandling() {
         alert("Failed to send message. Please try again.");
       }
     } catch (error) {
-      console.error("Form error:", error);
+      console.error("Contact form error:", error);
       alert("Something went wrong. Please check your connection and try again.");
     }
   });
@@ -250,8 +310,8 @@ function setupCustomDropdown() {
 
   if (!selectedText || !hiddenInput || !selectedBox) return;
 
-  selectedBox.addEventListener("click", e => {
-    e.stopPropagation();
+  selectedBox.addEventListener("click", event => {
+    event.stopPropagation();
     dropdown.classList.toggle("active");
   });
 
@@ -263,8 +323,8 @@ function setupCustomDropdown() {
     });
   });
 
-  document.addEventListener("click", e => {
-    if (!dropdown.contains(e.target)) {
+  document.addEventListener("click", event => {
+    if (!dropdown.contains(event.target)) {
       dropdown.classList.remove("active");
     }
   });

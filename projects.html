@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Ruan Hattingh's Portfolio</title>
-  <link rel="stylesheet" href="css/styles.css">
+
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 
 <body>
@@ -18,120 +20,42 @@
 <main>
   <h1>My Projects</h1>
 
-  <section class="project-card">
-  <h2>Zaio Projects</h2>
+  <p id="projects-status">Loading projects...</p>
 
-  <p>
-    This is a link to view all the python projects that I have completed as part of my studies at
-    Zaio Institute of Technology.
-  </p>
-
-  <ul>
-    <li>Python</li>
-    <li>Data Handling</li>
-  </ul>
-
-  <div class="project-links">
-    <a href="https://github.com/ruanhat06-123/Zaio_Projects" target="_blank">
-      View Projects
-    </a>
-  </div>
-</section>
-
-  <section class="project-card">
-  <h2>PowerWatchSA</h2>
-
-  <p>
-    A Python-based project that helps track and analyze power outages. 
-    Built as part of a collaborative team effort.
-  </p>
-
-  <ul>
-    <li>Python</li>
-    <li>Data Handling</li>
-    <li>Teamwork</li>
-  </ul>
-
-  <div class="project-links">
-    <a href="https://github.com/ruanhat06-123/PowerWatchSA" target="_blank">
-      View Source Code
-    </a>
-  </div>
-</section>
-
-<section class="project-card">
-  <h2>Ruan Hattingh Portfolio</h2>
-
-  <p>
-    This is the source code for the portfolio website you are currently viewing. It was built using HTML and CSS, with a little bit 
-    of JavaScript for interactivity. The design is clean and simple, with a focus on showcasing my skills, projects, and contact information
-    in a clear and accessible way. The website is fully responsive, ensuring it looks great on all devices, from desktops to smartphones.
-  </p>
-
-  <ul>
-    <li>HTML</li>
-    <li>CSS</li>
-    <li>JavaScript</li>
-  </ul>
-
-  <div class="project-links">
-    <a href="https://github.com/ruanhat06-123/portfolio" target="_blank">
-      View Source Code
-    </a>
-  </div>
-</section>
-
-<section class="project-card">
-  <h2>Khulani Accounting Management Services</h2>
-
-  <p>
-  In this project, I created a full website for a local business called Khulani Accounting
-  Management Services. The website was built using HTML, CSS, JavaScript, and Supabase for data
-  storage. It includes pages for Home, About, Services, Plans and Pricing, Book Online, and Blog.
-  It also includes a dropdown menu where users can view vacancies, FAQs, contact information, and
-  a members area. When logged in with an admin account, the user is redirected to an admin page
-  where blogs, vacancies, and FAQs can be added. The admin can also edit user roles.
-</p>
-
-  <ul>
-    <li>HTML</li>
-    <li>CSS</li>
-    <li>JavaScript</li>
-    <li>SQL in Supabase</li>
-  </ul>
-
-  <div class="project-links">
-    <a href="https://khulaniaccounting.co.za" target="_blank">
-      View Website
-    </a>
-
-    <a href="https://github.com/ruanhat06-123/Khulani-Accounting" target="_blank">
-      View Source Code
-    </a>
-  </div>
-</section>
-
+  <div id="projects-container"></div>
 </main>
 
 <footer>
   <p>&copy; 2026 Ruan Hattingh - Built with HTML</p>
 
   <div class="footer-socials">
-    <a href="https://github.com/ruanhat06-123" target="_blank">
+    <a
+      href="https://github.com/ruanhat06-123"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="GitHub profile"
+    >
       <i data-feather="github"></i>
     </a>
 
-    <a href="https://www.linkedin.com/in/ruan-hattingh-752193282/" target="_blank">
+    <a
+      href="https://www.linkedin.com/in/ruan-hattingh-752193282/"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="LinkedIn profile"
+    >
       <i data-feather="linkedin"></i>
     </a>
 
-    <a href="mailto:ruanhat06@gmail.com">
+    <a href="mailto:ruanhat06@gmail.com" aria-label="Email Ruan">
       <i data-feather="mail"></i>
     </a>
   </div>
 </footer>
 
 <script src="https://unpkg.com/feather-icons"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/main.js"></script>
+
 </body>
 </html>
