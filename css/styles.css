@@ -1,36 +1,12 @@
 /* =========================
    GLOBAL RESET
 ========================= */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* =========================
-   BODY (FIXED SCROLL ISSUE)
-========================= */
-body {
-    font-family: Arial, sans-serif;
-    background: #000004;
-    color: #ffffff;
-    text-align: center;
-
-    padding: 80px 20px 20px; /* space for navbar */
-
-    /* ✅ IMPORTANT FIX */
-    overflow-y: auto;
-}
-
-/* =========================
-   PAGE CONTAINER (FIXED)
-========================= */
+* {   margin: 0;
+   PAGE CONTAINER
 .page {
     display: block;
-    min-height: 100vh;   /* ✅ allows full content */
+    min-height: 100vh;
     padding: 20px;
-
-    /* animation support */
     opacity: 1;
     transform: translateY(0);
 }
@@ -55,6 +31,12 @@ body {
     white-space: nowrap;
 }
 
+.nav-links {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 .navbar a {
     color: white;
     text-decoration: none;
@@ -77,7 +59,9 @@ body {
 /* =========================
    HEADINGS
 ========================= */
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     margin: 10px 0;
 }
 
@@ -89,7 +73,7 @@ h1 {
 .home-page h2 {
     font-size: 2rem;
     color: #cccccc;
-    font-weight: 1000;
+    font-weight: bold;
 }
 
 h3 {
@@ -113,8 +97,7 @@ h4 {
 p {
     line-height: 1.6;
     margin-bottom: 15px;
-
-    /* ✅ Fix long text readability */
+    
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
@@ -168,6 +151,149 @@ img {
 }
 
 /* =========================
+   TESTIMONIALS - HORIZONTAL SCROLL
+========================= */
+.testimonials-section {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    max-width: 1000px;
+    margin: 20px auto 30px;
+    padding: 10px 5px 18px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+}
+
+.testimonials-section::-webkit-scrollbar {
+    height: 8px;
+}
+
+.testimonials-section::-webkit-scrollbar-track {
+    background: #111;
+    border-radius: 10px;
+}
+
+.testimonials-section::-webkit-scrollbar-thumb {
+    background: #0077b5;
+    border-radius: 10px;
+}
+
+.testimonials-section::-webkit-scrollbar-thumb:hover {
+    background: #005582;
+}
+
+.testimonial-card {
+    position: relative;
+    background: #111;
+    padding: 22px;
+    border-radius: 10px;
+    text-align: left;
+    border: 1px solid #222;
+    min-width: 300px;
+    max-width: 300px;
+    scroll-snap-align: start;
+    box-shadow: 0 0 12px rgba(0, 119, 181, 0.15);
+    transition: 0.3s;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 15px rgba(0, 119, 181, 0.4);
+}
+
+.quote-icon {
+    font-size: 3.5rem;
+    line-height: 1;
+    color: #0077b5;
+    position: absolute;
+    top: 8px;
+    left: 15px;
+    opacity: 0.3;
+    font-weight: bold;
+}
+
+.testimonial-text {
+    position: relative;
+    z-index: 1;
+    color: #dddddd;
+    font-style: italic;
+    line-height: 1.6;
+    margin-top: 25px;
+    margin-bottom: 18px;
+    max-width: 100%;
+}
+
+.testimonial-author {
+    border-top: 1px solid #333;
+    padding-top: 12px;
+}
+
+.testimonial-author h4 {
+    color: #ffffff;
+    margin-bottom: 4px;
+    text-decoration: none;
+}
+
+.testimonial-author p {
+    color: #aaaaaa;
+    font-size: 14px;
+    margin: 0;
+    max-width: 100%;
+}
+
+/* =========================
+   PROJECT FILTER
+========================= */
+.project-filter-section {
+    background: #111;
+    padding: 15px;
+    border-radius: 10px;
+    max-width: 700px;
+    margin: 20px auto;
+    text-align: left;
+}
+
+.project-filter-section label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+#technology-filter {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    background-color: #ffffff;
+    color: #000000;
+    border: 2px solid transparent;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#technology-filter:hover,
+#technology-filter:focus {
+    border: 2px solid #0077b5;
+    outline: none;
+}
+
+/* =========================
+   PROJECT STATUS
+========================= */
+#projects-status {
+    color: #cccccc;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+#projects-container {
+    width: 100%;
+}
+
+/* =========================
    PROJECT CARDS
 ========================= */
 .project-card {
@@ -186,6 +312,7 @@ img {
 .project-links a {
     display: inline-block;
     margin-right: 10px;
+    margin-top: 8px;
     padding: 8px 14px;
     background: #0077b5;
     color: white;
@@ -198,6 +325,7 @@ img {
 .project-links a:hover {
     background: #005582;
     transform: translateY(-2px);
+    text-shadow: none;
 }
 
 /* =========================
@@ -225,6 +353,18 @@ textarea {
     margin-top: 5px;
     margin-bottom: 15px;
     border-radius: 5px;
+    border: 2px solid transparent;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #0077b5;
+}
+
+textarea {
+    resize: vertical;
 }
 
 button {
@@ -234,63 +374,16 @@ button {
     color: white;
     border: none;
     border-radius: 5px;
+    transition: 0.3s;
 }
 
 button:hover {
     border: 2px solid #005582;
-    Background: transparent;
-}
-
-
-/* =========================
-   SOCIAL ICONS (FOOTER)
-========================= */
-.footer-socials {
-    margin-top: 10px;
-}
-
-.footer-socials a {
-    margin: 0 10px;
-    color: white;
-    transition: 0.3s;
-}
-
-.footer-socials a:hover {
-    color: #0077b5;
-    transform: translateY(-2px);
+    background: transparent;
 }
 
 /* =========================
-   FOOTER
-========================= */
-footer {
-    margin-top: 30px;
-    padding: 15px;
-    background: #333;
-    border-radius: 8px;
-}
-
-/* =========================
-   PAGE TRANSITION (SCROLL STYLE)
-========================= */
-body {
-    opacity: 1;
-    transform: translateY(0);
-    transition: transform 0.6s ease, opacity 0.6s ease;
-}
-
-body.slide-out {
-    transform: translateY(-120px);
-    opacity: 0;
-}
-
-body.slide-in {
-    transform: translateY(120px);
-    opacity: 0;
-}
-
-/* =========================
-   SELECT (SUBJECT DROPDOWN)
+   SELECT
 ========================= */
 select {
     width: 100%;
@@ -298,23 +391,15 @@ select {
     border-radius: 6px;
     background-color: #ffffff;
     color: #000000;
-
     border: 2px solid transparent;
-
     font-size: 14px;
     cursor: pointer;
-
-
 }
 
-/* Hover effect */
 select:hover {
     border: 2px solid #0077b5;
 }
 
-/* =========================
-   OPTION STYLING
-========================= */
 option {
     background-color: #000000;
     color: #ffffff;
@@ -331,27 +416,15 @@ option {
     cursor: pointer;
 }
 
-/* Selected box */
-.selected {
-    padding: 10px;
-    background: #ffffff;
-    border-radius: 6px;
-    border: 2px solid transparent;
-    color: rgb(0, 0, 0);
-}
-
-/* Selected container */
 .selected {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     padding: 10px;
     background: #ffffff;
     border-radius: 6px;
     border: 2px solid transparent;
-
-    color: rgb(0, 0, 0);
+    color: #000000;
     transition: 0.3s;
 }
 
@@ -359,51 +432,40 @@ option {
     border: 2px solid #0077b5;
 }
 
-/* Arrow */
 .arrow {
     font-size: 12px;
     transition: transform 0.3s ease;
 }
 
-/* ✅ Rotate arrow when open */
 .custom-dropdown.active .arrow {
     transform: rotate(180deg);
 }
 
-/* =========================
-   DROPDOWN OPTIONS (HIDDEN)
-========================= */
 .options {
     position: absolute;
     top: 100%;
     left: 0;
     width: 100%;
-
     background: #333;
     border-radius: 6px;
-
-    /* ✅ FORCE HIDDEN */
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-
     pointer-events: none;
-
     transition: max-height 0.3s ease, opacity 0.3s ease;
+    z-index: 20;
 }
 
-/* ✅ SHOW ONLY WHEN ACTIVE */
 .custom-dropdown.active .options {
-    max-height: 300px;   /* big enough for all items */
+    max-height: 300px;
     opacity: 1;
     pointer-events: auto;
 }
 
-/* Options */
 .options div {
     padding: 10px;
-    color: rgb(0, 0, 0);
-    background: white;
+    color: #000000;
+    background: #ffffff;
 }
 
 .options div:hover {
@@ -412,83 +474,165 @@ option {
 }
 
 /* =========================
+   FOOTER
+========================= */
+footer {
+    margin-top: 30px;
+    padding: 15px;
+    background: #333;
+    border-radius: 8px;
+}
+
+.footer-socials {
+    margin-top: 10px;
+}
+
+.footer-socials a {
+    margin: 0 10px;
+    color: white;
+    transition: 0.3s;
+}
+
+.footer-socials a:hover {
+    color: #0077b5;
+    transform: translateY(-2px);
+    text-shadow: none;
+}
+
+/* =========================
    MOBILE OPTIMIZATION
 ========================= */
 @media (max-width: 768px) {
+    body {
+        padding: 70px 15px 20px;
+    }
 
-  /* Body */
-  body {
-    padding: 70px 15px 20px;
-  }
+    .navbar {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+    }
 
-  /* Navbar */
-  .navbar {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    justify-content: flex-start;
-  }
+    .navbar a {
+        padding: 10px;
+        font-size: 14px;
+    }
 
-  .navbar a {
-    padding: 10px;
-    font-size: 14px;
-  }
+    h1 {
+        font-size: 1.6rem;
+    }
 
-  /* Headings */
-  h1 {
-    font-size: 1.6rem;
-  }
+    h2 {
+        font-size: 1.3rem;
+    }
 
-  h2 {
-    font-size: 1.3rem;
-  }
+    h3 {
+        font-size: 1.1rem;
+    }
 
-  h3 {
-    font-size: 1.1rem;
-  }
+    p {
+        font-size: 14px;
+        max-width: 100%;
+        padding: 0 5px;
+    }
 
-  /* Paragraphs */
-  p {
-    font-size: 14px;
-    max-width: 100%;
-    padding: 0 5px;
-  }
+    .profile-img {
+        width: 120px;
+        height: 120px;
+    }
 
-  /* Profile image */
-  .profile-img {
-    width: 120px;
-    height: 120px;
-  }
+    .testimonials-section {
+        gap: 14px;
+        margin: 15px 0 25px;
+        padding: 10px 5px 16px;
+    }
 
-  /* Project cards */
-  .project-card {
-    padding: 15px;
-    margin: 10px;
-  }
+    .testimonial-card {
+        min-width: 85%;
+        max-width: 85%;
+        padding: 20px 16px 18px;
+    }
 
-  /* Buttons */
-  .buttons a {
-    width: 100%;
-    max-width: 300px;
-  }
+    .quote-icon {
+        font-size: 3rem;
+        top: 6px;
+        left: 12px;
+    }
 
-  /* Form */
-  form {
-    padding: 15px;
-  }
+    .testimonial-text {
+        font-size: 14px;
+        margin-top: 22px;
+    }
 
-  input,
-  select,
-  textarea {
-    font-size: 14px;
-  }
+    .testimonial-author p {
+        font-size: 13px;
+    }
 
-  /* Dropdown fix */
-  .custom-dropdown {
-    max-width: 100%;
-  }
+    .project-filter-section {
+        margin: 15px 10px;
+        padding: 14px;
+    }
 
-  /* Footer */
-  footer {
-    font-size: 14px;
-  }
+    #technology-filter {
+        font-size: 14px;
+    }
+
+    .project-card {
+        padding: 15px;
+        margin: 10px;
+    }
+
+    .buttons a {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    form {
+        padding: 15px;
+    }
+
+    input,
+    select,
+    textarea {
+        font-size: 14px;
+    }
+
+    .custom-dropdown {
+        max-width: 100%;
+    }
+
+    footer {
+        font-size: 14px;
+    }
+}
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* =========================
+   BODY
+========================= */
+body {
+    font-family: Arial, sans-serif;
+    background: #000004;
+    color: #ffffff;
+    text-align: center;
+    padding: 80px 20px 20px;
+    overflow-y: auto;
+    opacity: 1;
+    transform: translateY(0);
+    transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+/* =========================
+   PAGE TRANSITION
+========================= */
+body.slide-out {
+    transform: translateY(-120px);
+    opacity: 0;
+}
+
+body.slide-in {
+    transform: translateY(120px);
+    opacity: 0;
 }
