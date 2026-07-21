@@ -242,6 +242,7 @@ function createProjectCard(project) {
   section.classList.add("project-card");
 
   const title = document.createElement("h2");
+  title.classList.add("project-card-title");
   title.textContent = project.title || "Untitled Project";
 
   const description = document.createElement("p");
